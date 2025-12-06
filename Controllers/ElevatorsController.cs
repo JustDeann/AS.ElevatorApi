@@ -3,7 +3,7 @@ using ElevatorApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElevatorApi.Controllers;
-
+//Controller to manage elevator-related endpoints
 [ApiController]
 [Route("api/elevators")]
 public class ElevatorsController : ControllerBase
