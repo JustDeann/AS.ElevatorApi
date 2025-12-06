@@ -1,3 +1,5 @@
+using ElevatorApi.Options;
+using ElevatorApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 //set the url to listen on all interfaces on port 8080
@@ -16,7 +18,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
+builder.Services.Configure<ElevatorDispatchOptions>(builder.Configuration.GetSection("Dispatching"));
+builder.Services.AddSingleton<IElevatorDispatchService, ElevatorDispatchService>();
 var app = builder.Build();
 //I like to use swagger for testing APIs
 app.UseSwagger();
