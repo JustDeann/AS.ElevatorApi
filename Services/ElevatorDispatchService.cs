@@ -3,7 +3,7 @@ using ElevatorApi.Options;
 using Microsoft.Extensions.Options;
 
 namespace ElevatorApi.Services;
-
+/// Implementation of the IElevatorDispatchService interface for managing elevator dispatching
 public class ElevatorDispatchService : IElevatorDispatchService
 {
     private readonly ElevatorDispatchOptions _options;
