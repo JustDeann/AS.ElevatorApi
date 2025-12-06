@@ -1,4 +1,5 @@
 using ElevatorApi.Models;
+using ElevatorApi.Data;
 using ElevatorApi.Options;
 using Microsoft.Extensions.Options;
 
@@ -17,10 +18,28 @@ public class ElevatorDispatchService : IElevatorDispatchService
 
         _elevators = new Dictionary<Guid, ElevatorState>(_options.ElevatorCount);
 
-        for (var index = 0; index < _options.ElevatorCount; index++)
+         var seededElevators = ElevatorSeedData.Elevators
+            .Take(_options.ElevatorCount)
+            .ToList();
+
+        foreach (var seed in seededElevators)
+        {
+            ValidateFloor(seed.StartingFloor);
+
+            var state = new ElevatorState(seed.Id, seed.Name, seed.StartingFloor);
+            foreach (var stop in seed.PendingStops)
+            {
+                ValidateFloor(stop);
+                state.EnqueueStop(stop);
+            }
+
+            _elevators[state.Id] = state;
+        }
+
+        while (_elevators.Count < _options.ElevatorCount)
         {
             var identifier = Guid.NewGuid();
-            var name = $"CAR-{index + 1:D2}";
+            var name = $"CAR-{_elevators.Count + 1:D2}";
             _elevators[identifier] = new ElevatorState(identifier, name, _options.DefaultFloor);
         }
     }
