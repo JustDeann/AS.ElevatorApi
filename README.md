@@ -19,6 +19,7 @@ REST API for simulating a bank of elevators. The service exposes endpoints for r
    dotnet run --project ElevatorApi.csproj
    ```
 4. The application listens on `http://localhost:8080` (configurable via `Properties/launchSetting.json` or `Program.cs`).
+
 5. For live-reload during development, use `dotnet watch run --project ElevatorApi.csproj`.
 
 ## Configuration
@@ -45,10 +46,13 @@ REST API for simulating a bank of elevators. The service exposes endpoints for r
 ### Examples
 
 ```powershell
+# List all elevators
+curl http://localhost:8080/api/elevators
+
 # Request a pickup on floor 8 to travel up
 curl http://localhost:8080/api/requests/call ^
 	-H "Content-Type: application/json" ^
-	-d '{"floor":8,"direction": 1}'
+	-d '{"floor":8,"direction": "up"}'
 
 # Inspect the destinations for a specific elevator
 curl http://localhost:8080/api/elevators/{elevatorId}/destinations
@@ -59,7 +63,7 @@ curl -X POST http://localhost:8080/api/elevators/{elevatorId}/next-stop
 
 ## Testing
 
-Run the project unit tests (if present) with:
+Run the project unit tests with:
 
 ```powershell
 dotnet test
@@ -70,4 +74,4 @@ dotnet test
 - `Controllers/` – API controllers that expose elevator operations.
 - `Services/` – Core dispatch logic implemented by `ElevatorDispatchService`.
 - `Models/` – Request and response DTOs shared by the API.
-- `Data/` – Seed data used to bootstrap the in-memory elevator state.
+- `Data/` – Mock data used to run elevator state.

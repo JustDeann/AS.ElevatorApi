@@ -14,7 +14,11 @@ public class RequestsController : ControllerBase
     {
         _dispatchService = dispatchService;
     }
-
+     /// <summary>
+     /// Request an elevator to a specific floor    
+     /// </summary>
+     /// <param name="request"></param>
+     /// <returns>Call elevator response based on the direction</returns>
     [HttpPost("call")]
     [ProducesResponseType(typeof(CallElevatorResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -40,7 +44,11 @@ public class RequestsController : ControllerBase
             });
         }
     }
-
+    /// <summary>
+    /// Assign a destination floor to a specific elevator
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns>Assign destination response</returns>
     [HttpPost("destinations")]
     [ProducesResponseType(typeof(AssignDestinationResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

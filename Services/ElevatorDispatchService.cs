@@ -50,7 +50,7 @@ public class ElevatorDispatchService : IElevatorDispatchService
 
         lock (_sync)
         {
-            var elevator = SelectElevator(request.Floor, request.Direction);
+            var elevator = SelectElevator(request.Floor, request.RequestedDirection);
             var added = elevator.EnqueueStop(request.Floor);
 
             return new CallElevatorResponse(
