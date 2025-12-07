@@ -14,7 +14,11 @@ public class ElevatorsController : ControllerBase
     {
         _dispatchService = dispatchService;
     }
-
+    /// <summary>
+    /// Get all elevators
+    /// </summary>
+    /// <param></param>
+    /// <returns>List of elevator summaries</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ElevatorSummaryResponse>), StatusCodes.Status200OK)]
     public ActionResult<IReadOnlyCollection<ElevatorSummaryResponse>> GetElevators()
@@ -22,7 +26,11 @@ public class ElevatorsController : ControllerBase
         var elevators = _dispatchService.GetElevators();
         return Ok(elevators);
     }
-
+    /// <summary>
+    /// Get destinations for a specific elevator
+    /// </summary>
+    /// <param name="elevatorId"></param>
+    /// <returns>Destinations for the specified elevator</returns>
     [HttpGet("{elevatorId:guid}/destinations")]
     [ProducesResponseType(typeof(ElevatorDestinationsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,7 +51,12 @@ public class ElevatorsController : ControllerBase
             });
         }
     }
-
+    
+    /// <summary>
+    /// Get next stops for a specific elevator
+    /// </summary>
+    /// <param name="elevatorId"></param>
+    /// <returns>Next stops for the specified elevator</returns>
     [HttpPost("{elevatorId:guid}/next-stop")]
     [ProducesResponseType(typeof(NextStopResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
